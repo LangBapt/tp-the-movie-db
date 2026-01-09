@@ -23,6 +23,34 @@
   margin-bottom: 0.5rem;
 }
 
+.backLink {
+  color: #E50914;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.trailerButton {
+  background-color: #E50914;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Netflix Sans', Arial, sans-serif;
+}
+
+.trailerButton:hover {
+  opacity: 0.9;
+}
+
+.trailerWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
 .overview {
   max-width: 800px;
   margin: 0 auto 1rem auto;
@@ -49,7 +77,6 @@
   margin: 2rem 0 1rem 0;
 }
 
-/* ACTEURS */
 .castGrid {
   display: grid;
   gap: 1rem;
@@ -70,7 +97,6 @@
   border-radius: 4px;
 }
 
-/* FILMS SIMILAIRES */
 .similarGrid {
   display: grid;
   gap: 1rem;
@@ -121,4 +147,8 @@
 @media (max-width: 480px) {
   .castGrid { grid-template-columns: repeat(2, 1fr); }
   .similarGrid { grid-template-columns: repeat(1, 1fr); }
+}
+
+@media (max-width: 360px) {
+  .castGrid, .similarGrid { grid-template-columns: repeat(1, 1fr); }
 }
