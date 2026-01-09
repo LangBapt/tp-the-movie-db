@@ -9,42 +9,57 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w200";
 function MovieList() {
   const [movies, setMovies] = useState([]);
   const [category, setCategory] = useState("popular");
+  const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchMovies() {
       try {
         setLoading(true);
-        const response = await fetch(
-          `${BASE_URL}/movie/${category}?api_key=${API_KEY}&language=fr-FR`
+        const res = await fetch(
+          `${BASE_URL}/movie/${category}?api_key=${API_KEY}&language=fr-FR&page=${page}`
         );
-        const data = await response.json();
+        const data = await res.json();
         setMovies(data.results || []);
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error(err);
       } finally {
         setLoading(false);
       }
     }
     fetchMovies();
-  }, [category]);
+  }, [category, page]);
 
-  const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(search.toLowerCase())
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  const filteredMovies = movies.filter(movie =>
+    movie.title.toLowerCase().includes(debouncedSearch.toLowerCase())
   );
 
-  if (loading) return <p style={{ color: "#fff", textAlign: "center" }}>Chargement des films...</p>;
+  if (loading) {
+    return <p style={{ color: "#fff", textAlign: "center" }}>Chargement...</p>;
+  }
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Netflux</h1>
 
       <div className={styles.categoryButtons}>
-        {["now_playing", "popular", "top_rated", "upcoming"].map((cat) => (
+        {["now_playing", "popular", "top_rated", "upcoming"].map(cat => (
           <button
             key={cat}
-            onClick={() => setCategory(cat)}
+            onClick={() => {
+              setCategory(cat);
+              setPage(1);
+            }}
             className={styles.categoryButton}
           >
             {cat.replace("_", " ").toUpperCase()}
@@ -56,15 +71,18 @@ function MovieList() {
         type="text"
         placeholder="Rechercher un film..."
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={e => setSearch(e.target.value)}
         className={styles.inputSearch}
       />
 
       <div className={styles.movieGrid}>
-        {filteredMovies.map((movie) => (
+        {filteredMovies.map(movie => (
           <div key={movie.id} className={styles.movieCard}>
             {movie.poster_path && (
-              <img src={`${IMAGE_BASE_URL}${movie.poster_path}`} alt={movie.title} />
+              <img
+                src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+                alt={movie.title}
+              />
             )}
             <h3>{movie.title}</h3>
             <p>⭐ {movie.vote_average}</p>
@@ -73,6 +91,21 @@ function MovieList() {
             </Link>
           </div>
         ))}
+      </div>
+
+      <div className={styles.pagination}>
+        <button
+          disabled={page === 1}
+          onClick={() => setPage(p => p - 1)}
+        >
+          ← Précédent
+        </button>
+
+        <span>Page {page}</span>
+
+        <button onClick={() => setPage(p => p + 1)}>
+          Suivant →
+        </button>
       </div>
     </div>
   );
