@@ -88,6 +88,32 @@
   border-radius: 4px;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.pagination button {
+  background-color: #E50914;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-weight: bold;
+}
+
 @media (max-width: 1024px) { .movieGrid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px) { .movieGrid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px) { .movieGrid { grid-template-columns: repeat(1, 1fr); } }
