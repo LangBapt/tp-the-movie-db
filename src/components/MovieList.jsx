@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -14,20 +15,17 @@ function MovieList() {
     async function fetchMovies() {
       try {
         setLoading(true);
-
         const response = await fetch(
           `${BASE_URL}/movie/${category}?api_key=${API_KEY}&language=fr-FR`
         );
-
         const data = await response.json();
         setMovies(data.results || []);
       } catch (error) {
-        console.error("Erreur lors du chargement des films :", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
     }
-
     fetchMovies();
   }, [category]);
 
@@ -36,19 +34,33 @@ function MovieList() {
   );
 
   if (loading) {
-    return <p>Chargement des films...</p>;
+    return <p style={{ color: "#fff", textAlign: "center" }}>Chargement des films...</p>;
   }
 
   return (
-    <div style={{ padding: "1rem", textAlign: "center" }}>
-      <h1 style={{ marginBottom: "1.5rem" }}>Netflux</h1>
+    <div style={{ minHeight: "100vh", backgroundColor: "#141414", color: "#fff", padding: "1rem" }}>
+      <h1 style={{ textAlign: "center", marginBottom: "1.5rem", color: "#E50914", fontFamily: 'Netflix Sans, Arial, sans-serif' }}>
+        Netflux
+      </h1>
 
-      {/* Boutons de catégorie centrés avec espace */}
       <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
-        <button onClick={() => setCategory("now_playing")}>Now Playing</button>
-        <button onClick={() => setCategory("popular")}>Popular</button>
-        <button onClick={() => setCategory("top_rated")}>Top Rated</button>
-        <button onClick={() => setCategory("upcoming")}>Upcoming</button>
+        {["now_playing", "popular", "top_rated", "upcoming"].map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setCategory(cat)}
+            style={{
+              backgroundColor: "#E50914",
+              color: "#fff",
+              border: "none",
+              padding: "0.5rem 1rem",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontFamily: 'Netflix Sans, Arial, sans-serif'
+            }}
+          >
+            {cat.replace("_", " ").toUpperCase()}
+          </button>
+        ))}
       </div>
 
       <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.5rem" }}>
@@ -64,6 +76,7 @@ function MovieList() {
             minWidth: "200px",
             borderRadius: "4px",
             border: "1px solid #ccc",
+            fontFamily: 'Netflix Sans, Arial, sans-serif'
           }}
         />
       </div>
@@ -76,7 +89,9 @@ function MovieList() {
             )}
             <h3>{movie.title}</h3>
             <p>⭐ {movie.vote_average}</p>
-            <button disabled>Voir les détails</button>
+            <Link to={`/movie/${movie.id}`}>
+              <button>Voir les détails</button>
+            </Link>
           </div>
         ))}
       </div>
@@ -89,15 +104,28 @@ function MovieList() {
         }
 
         .movie-card {
-          border: 1px solid #ddd;
+          border: 1px solid #333;
           border-radius: 8px;
           padding: 1rem;
+          background-color: #181818;
+          text-align: center;
         }
 
         .movie-card img {
           width: 100%;
           border-radius: 4px;
           object-fit: cover;
+        }
+
+        .movie-card button {
+          margin-top: 0.5rem;
+          background-color: #E50914;
+          color: #fff;
+          border: none;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          cursor: pointer;
+          font-family: 'Netflix Sans, Arial, sans-serif';
         }
 
         @media (max-width: 1024px) {
