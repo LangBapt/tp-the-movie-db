@@ -2,13 +2,14 @@
   min-height: 100vh;
   padding: 1rem;
   text-align: center;
+  background-color: #141414;
+  color: #fff;
 }
 
-.backLink {
-  color: #E50914;
-  text-decoration: none;
-  margin-bottom: 1rem;
-  display: inline-block;
+.loading {
+  text-align: center;
+  color: #fff;
+  margin-top: 2rem;
 }
 
 .poster {
@@ -23,24 +24,32 @@
 }
 
 .overview {
-  margin-bottom: 0.5rem;
+  max-width: 800px;
+  margin: 0 auto 1rem auto;
   text-align: justify;
 }
 
 .info {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .buttonWishlist {
-  margin-bottom: 2rem;
+  margin: 1.5rem 0 2rem 0;
   background-color: #E50914;
   color: #fff;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 4px;
   cursor: pointer;
+  font-family: inherit;
 }
 
+.sectionTitle {
+  color: #E50914;
+  margin: 2rem 0 1rem 0;
+}
+
+/* ACTEURS */
 .castGrid {
   display: grid;
   gap: 1rem;
@@ -54,15 +63,62 @@
   border-radius: 8px;
   padding: 0.5rem;
   background-color: #181818;
-  text-align: center;
 }
 
 .castCard img {
   width: 100%;
   border-radius: 4px;
-  object-fit: cover;
 }
 
-@media (max-width: 1024px) { .castGrid { grid-template-columns: repeat(4, 1fr); } }
-@media (max-width: 768px) { .castGrid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 480px) { .castGrid { grid-template-columns: repeat(2, 1fr); } }
+/* FILMS SIMILAIRES */
+.similarGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+}
+
+.similarCard {
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #181818;
+}
+
+.similarCard img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.similarButton {
+  margin-top: 0.5rem;
+  background-color: #E50914;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.placeholder {
+  width: 100%;
+  height: 300px;
+  background-color: #333;
+  border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+  .castGrid { grid-template-columns: repeat(4, 1fr); }
+  .similarGrid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .castGrid { grid-template-columns: repeat(3, 1fr); }
+  .similarGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .castGrid { grid-template-columns: repeat(2, 1fr); }
+  .similarGrid { grid-template-columns: repeat(1, 1fr); }
+}
