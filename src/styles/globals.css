@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #141414;
+  color: #fff;
+  font-family: 'Netflix Sans', Arial, sans-serif;
+  line-height: 1.5;
+}
+
+h1,h2,h3,h4,h5,h6,p,label,a,button,input,textarea,select {
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 4px;
+}
