@@ -1,0 +1,22 @@
+.navbar {
+  background-color: #141414;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Netflix Sans', Arial, sans-serif;
+}
+
+.logo {
+  color: #E50914;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.wishlist {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}

@@ -1,17 +1,19 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { WishlistProvider } from "./context/WishlistContext"; 
 import App from "./App.jsx";
 import MovieList from "./pages/MovieList.jsx";
 import MovieDetail from "./pages/MovieDetail.jsx";
 import Wishlist from "./pages/MovieWishlist.jsx";
-import "./index.css";
+import { WishlistProvider } from "./context/WishlistContext";
+import Navbar from "./components/Navbar.jsx";
+import "./styles/globals.css";
 
-createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <WishlistProvider>
       <BrowserRouter>
+        <Navbar />
         <App>
           <Routes>
             <Route path="/" element={<MovieList />} />
